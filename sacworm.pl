@@ -15,7 +15,7 @@ sub get_range{
     if($args =~ /^[\t ]*(\d+)\.\.(\d+)(.*)$/){
         return ($1, $2, $3)
     }
-    else{synerror("Expected range when parsing $args")}
+    else{synerror("Expected range when parsing: '$args'")}
 }
 
 sub get_number{
@@ -23,12 +23,12 @@ sub get_number{
     if($args =~ /^[\t ]*(\d+)(.*)$/){
         return ($1, $2)
     }
-    else{synerror("Expected number when parsing $args")}
+    else{synerror("Expected number when parsing: '$args'")}
 }
 
 sub assert_empty{
     ($str) = @_;
-    synerror("Trailing data after arguments: $str") unless ($str=~/^[\t ]*$/)
+    synerror("Trailing data after arguments: '$str'") unless ($str=~/^[\t ]*$/)
 }
 
 sub debug{
@@ -80,7 +80,7 @@ sub expr_line{
 sub executeline{
     ($line) = @_;
     #print("\n\nAbout to execute line number: $curline\n");
-    if ($line =~/([^ ]+) +(.*)$/){
+    if ($line =~/^([^ ]+)(.*)$/){
         $command = $1;
         $args = $2;
         if ($command eq "copy"){swh_copy($args)}
